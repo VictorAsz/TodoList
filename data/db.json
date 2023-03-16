@@ -1,19 +1,22 @@
 {
-  "posts": [
+  "todos": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": 0.6543987722418194,
+      "title": "teste",
+      "time": "tempo 1",
+      "done": false
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 0.15201792283258175,
+      "title": "asdas",
+      "time": "asdas",
+      "done": true
+    },
+    {
+      "id": 0.09973109943634761,
+      "title": "teste 4",
+      "time": "teste 4",
+      "done": true
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
