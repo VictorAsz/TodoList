@@ -1,9 +1,10 @@
 .app {
-  width: 60%;
+  width: 40%;
   margin: 2em auto;
   background-color: #394049;
   border-radius: 5px;
   color: rgb(212, 225, 236);
+  border-bottom: 5px solid #5b6175;
 }
 
 .todo-header {
@@ -91,7 +92,7 @@ input[type="submit"]:hover {
   margin: 1em 2em;
 }
 .list-todo h2 {
-  margin-bottom: 0;
+  margin-bottom: 0.7em;
 }
 
 .list-todo p {
@@ -103,7 +104,7 @@ input[type="submit"]:hover {
 
   color: #0c0c0c;
   background-color: rgb(224, 233, 222);
-  border-bottom: 1px solid #4444;
+  border-bottom: 5px solid rgb(190, 131, 72);
   padding-top: 0.2em;
   padding-left: 1em;
   padding-bottom: 0.4em;
