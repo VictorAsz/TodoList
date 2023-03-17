@@ -8,26 +8,23 @@ function App() {
   const [title, setTitle] = useState("");
   const [time, setTime] = useState("");
   const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //Load todos on page load
   useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      const res = await fetch(API + "/todos")
-        .then((res) => res.json())
-        .then((data) => data)
-        .catch((err) => console.log(err));
-
-      setLoading(false);
-
-      setTodos(res);
-    };
-
-    loadData();
+    setLoading(true);
+    const loadedTodos = window.localStorage.getItem("todos") || "[]";
+    setTodos(JSON.parse(loadedTodos));
+    setLoading(false);
   }, []);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    if (!loading) {
+    window.localStorage.setItem("todos", JSON.stringify(todos))
+  };
+  }, [todos]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const todo = {
@@ -36,41 +33,18 @@ function App() {
       time,
       done: false,
     };
-    //envio para a API
-    await fetch(API + "/todos", {
-      method: "POST",
-      body: JSON.stringify(todo),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
     setTodos((prevState) => [...prevState, todo]);
-
     setTitle("");
     setTime("");
   };
 
-  const handleDelete = async (id) => {
-    await fetch(API + "/todos/" + id, {
-      method: "DELETE",
-    });
-
-    setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
+  const handleEdit = (todo) => {
+    todo.done = !todo.done;
+    setTodos((todos) => todos.map((t) => (t.id === todo.id ? (t = todo) : t)));
   };
 
-  const handleEdit = async (todo) => {
-    todo.done = !todo.done;
-
-    const data = await fetch(API + "/todos/" + todo.id, {
-      method: "PUT",
-      body: JSON.stringify(todo),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    setTodos((prevState) => prevState.map((t) => (t.id === data.id) ? (t = data) : t))
+  const handleDelete = (id) => {
+    setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
   };
 
   if (loading) {
